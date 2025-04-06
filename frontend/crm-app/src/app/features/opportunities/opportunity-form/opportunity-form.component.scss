@@ -1,0 +1,39 @@
+// Add any specific styles for the opportunity form component here
+
+// Add some spacing between form fields
+mat-form-field {
+  margin-bottom: 1rem;
+}
+
+// Style for the textarea
+textarea {
+  min-height: 100px;
+  resize: vertical;
+  width: 100%;
+}
+
+// Make the description field take up more space
+.description-field {
+  width: 100% !important;
+  margin-top: 1rem;
+}
+
+// Add some spacing between buttons
+button {
+  margin-left: 8px;
+}
+
+// Make the container take up more width
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+// Remove padding from the card to maximize width
+mat-card {
+  padding: 16px 0;
+}
+
+mat-card-content {
+  padding: 0 16px;
+}

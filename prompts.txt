@@ -1,0 +1,14 @@
+Me puedes crear un CRM básico con las siguientes funcionalidades:
+- Gestión de Contactos: Almacena información de clientes actuales y potenciales, incluyendo datos de contacto, historial de interacciones y preferencias. 
+- Seguimiento de Oportunidades: 
+    - Permite gestionar el ciclo de ventas, desde la identificación de oportunidades hasta su cierre. 
+    - tendrán los siguientes estados: Identificada, Calificada, Propuesta, Decisión, Cerrada Ganada, Cerrada Perdida y Cerrada Descartada
+    - las oportunidades irán ligadas a un cliente siempre.
+- KPIs y Gráficos: mostrar en un dashboard principal con el número de clientes actuales, y el número de oportunidades abiertas y ganadas. 
+
+Ha de tener el siguiente stack tecnológico:
+- backend: python
+- frontend: angular
+- BBDD Sqlite
+
+El modelo de datos básate en el Common Data Model (CDM) de Microsoft. Ha de estar preparada para poder ampliar fácilmente con funcionalidades la plataforma.

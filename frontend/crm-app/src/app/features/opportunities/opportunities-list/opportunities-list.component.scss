@@ -1,0 +1,35 @@
+// Add any specific styles for the opportunities list component here
+
+// Style for the status badges
+.badge {
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  font-weight: 500;
+  display: inline-block;
+  min-width: 120px;
+  text-align: center;
+}
+
+// Make the table more responsive
+.mat-mdc-table {
+  width: 100%;
+  overflow-x: auto;
+}
+
+// Add some spacing to the table cells
+.mat-mdc-cell, .mat-mdc-header-cell {
+  padding: 0 16px;
+}
+
+// Ensure filters stay side by side with proper spacing
+.row.mb-3 {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+// Add some spacing between filter fields on very small screens
+@media (max-width: 767px) {
+  .col-md-6:first-child {
+    margin-bottom: 1rem;
+  }
+}
