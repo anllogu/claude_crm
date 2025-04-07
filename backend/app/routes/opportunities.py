@@ -2,8 +2,9 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
 from ..database import get_db
-from ..models import User, Opportunity, Contact
+from ..models import User, Opportunity, Contact, OpportunityTracking
 from ..schemas import OpportunityCreate, OpportunityUpdate, Opportunity as OpportunitySchema
+from ..schemas import OpportunityTracking as OpportunityTrackingSchema, OpportunityTrackingCreate
 from ..auth import get_current_user
 
 router = APIRouter(
@@ -76,6 +77,20 @@ def update_opportunity(
         raise HTTPException(status_code=404, detail="Opportunity not found")
     
     update_data = opportunity.dict(exclude_unset=True)
+    
+    # Check if status is being updated to track the change
+    if 'status' in update_data and update_data['status'] != db_opportunity.status:
+        # Create a tracking entry for status change
+        tracking_entry = OpportunityTracking(
+            opportunity_id=opportunity_id,
+            user_id=current_user.id,
+            tracking_type="status_change",
+            old_status=db_opportunity.status,
+            new_status=update_data['status']
+        )
+        db.add(tracking_entry)
+    
+    # Update opportunity fields
     for key, value in update_data.items():
         setattr(db_opportunity, key, value)
     
@@ -96,3 +111,49 @@ def delete_opportunity(
     db.delete(db_opportunity)
     db.commit()
     return None
+
+@router.get("/{opportunity_id}/tracking", response_model=List[OpportunityTrackingSchema])
+def read_opportunity_tracking(
+    opportunity_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """Get all tracking entries for an opportunity"""
+    # Check if opportunity exists
+    opportunity = db.query(Opportunity).filter(Opportunity.id == opportunity_id).first()
+    if opportunity is None:
+        raise HTTPException(status_code=404, detail="Opportunity not found")
+    
+    tracking_entries = db.query(OpportunityTracking).filter(
+        OpportunityTracking.opportunity_id == opportunity_id
+    ).order_by(OpportunityTracking.created_at.desc()).all()
+    
+    return tracking_entries
+
+@router.post("/{opportunity_id}/tracking", response_model=OpportunityTrackingSchema)
+def create_tracking_entry(
+    opportunity_id: int,
+    tracking: OpportunityTrackingCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """Create a new tracking entry (comment or status change)"""
+    # Check if opportunity exists
+    opportunity = db.query(Opportunity).filter(Opportunity.id == opportunity_id).first()
+    if opportunity is None:
+        raise HTTPException(status_code=404, detail="Opportunity not found")
+    
+    # Ensure the opportunity_id in the path matches the one in the request body
+    if tracking.opportunity_id != opportunity_id:
+        raise HTTPException(status_code=400, detail="Opportunity ID mismatch")
+    
+    db_tracking = OpportunityTracking(
+        **tracking.dict(),
+        user_id=current_user.id
+    )
+    
+    db.add(db_tracking)
+    db.commit()
+    db.refresh(db_tracking)
+    
+    return db_tracking

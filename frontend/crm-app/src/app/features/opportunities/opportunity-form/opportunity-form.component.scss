@@ -37,3 +37,59 @@ mat-card {
 mat-card-content {
   padding: 0 16px;
 }
+
+// Styles for tracking entries
+.tracking-container {
+  padding: 0 16px;
+}
+
+.tracking-entry {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 16px 0;
+  margin-bottom: 16px;
+  height: auto !important;
+}
+
+.tracking-entry-content {
+  width: 100%;
+}
+
+.tracking-entry-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.tracking-date {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.tracking-type-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.tracking-type-badge.status-change {
+  background-color: #e3f2fd;
+  color: #1976d2;
+}
+
+.tracking-type-badge.comment {
+  background-color: #e8f5e9;
+  color: #388e3c;
+}
+
+.status-change-content, .comment-content {
+  margin-top: 8px;
+  padding: 8px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+
+// Override mat-list-item height for tracking entries
+::ng-deep .mat-mdc-list-item {
+  height: auto !important;
+}

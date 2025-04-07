@@ -30,3 +30,4 @@ class Opportunity(Base):
     # Relationships
     contact = relationship("Contact", back_populates="opportunities")
     user = relationship("User", back_populates="opportunities")
+    tracking_entries = relationship("OpportunityTracking", back_populates="opportunity")

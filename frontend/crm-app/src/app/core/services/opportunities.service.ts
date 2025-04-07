@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiConfigService } from './api-config.service';
 import { Opportunity, OpportunityCreate, OpportunityUpdate } from '../models/opportunity.model';
+import { OpportunityTracking, OpportunityTrackingCreate } from '../models/opportunity-tracking.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,5 +36,26 @@ export class OpportunitiesService {
 
   deleteOpportunity(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiConfig.getOpportunitiesUrl()}/${id}`);
+  }
+
+  // Opportunity Tracking methods
+  getOpportunityTracking(opportunityId: number): Observable<OpportunityTracking[]> {
+    return this.http.get<OpportunityTracking[]>(`${this.apiConfig.getOpportunitiesUrl()}/${opportunityId}/tracking`);
+  }
+
+  addTrackingEntry(opportunityId: number, tracking: OpportunityTrackingCreate): Observable<OpportunityTracking> {
+    return this.http.post<OpportunityTracking>(
+      `${this.apiConfig.getOpportunitiesUrl()}/${opportunityId}/tracking`, 
+      tracking
+    );
+  }
+
+  addComment(opportunityId: number, comment: string): Observable<OpportunityTracking> {
+    const trackingData: OpportunityTrackingCreate = {
+      opportunity_id: opportunityId,
+      tracking_type: 'comment',
+      comment: comment
+    };
+    return this.addTrackingEntry(opportunityId, trackingData);
   }
 }

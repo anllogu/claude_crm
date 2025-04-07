@@ -3,3 +3,4 @@ from .contact import Contact
 from .interaction import Interaction
 from .opportunity import Opportunity
 from .opportunity import OpportunityStatus
+from .opportunity_tracking import OpportunityTracking
