@@ -4,6 +4,14 @@
       <mat-card-title>{{ isEditMode ? 'Editar Oportunidad' : 'Crear Nueva Oportunidad' }}</mat-card-title>
     </mat-card-header>
     
+    <!-- Barra de progreso de oportunidad -->
+    <app-opportunity-progress-bar 
+      *ngIf="isEditMode"
+      [currentStatus]="opportunityForm.get('status')?.value"
+      [opportunityId]="opportunityId ?? 0"
+      (statusChange)="onStatusChange($event)">
+    </app-opportunity-progress-bar>
+    
     <mat-card-content>
       <div *ngIf="isLoading" class="text-center my-4">
         <mat-spinner diameter="40" class="mx-auto"></mat-spinner>

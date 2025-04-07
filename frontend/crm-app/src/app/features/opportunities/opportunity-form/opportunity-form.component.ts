@@ -15,6 +15,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
+import { OpportunityProgressBarComponent } from '../opportunity-progress-bar/opportunity-progress-bar.component';
 
 import { OpportunitiesService } from '../../../core/services/opportunities.service';
 import { ContactsService } from '../../../core/services/contacts.service';
@@ -41,7 +42,8 @@ import { OpportunityTracking } from '../../../core/models/opportunity-tracking.m
     MatNativeDateModule,
     MatTabsModule,
     MatListModule,
-    MatDividerModule
+    MatDividerModule,
+    OpportunityProgressBarComponent
   ],
   templateUrl: './opportunity-form.component.html',
   styleUrls: ['./opportunity-form.component.scss']
@@ -127,7 +129,7 @@ export class OpportunityFormComponent implements OnInit {
     });
   }
 
-  onSubmit(): void {
+  onSubmit(stayOnPage: boolean = false): void {
     if (this.opportunityForm.invalid) {
       this.opportunityForm.markAllAsTouched();
       return;
@@ -152,10 +154,20 @@ export class OpportunityFormComponent implements OnInit {
           if (this.opportunityForm.get('status')?.dirty) {
             this.loadTrackingEntries();
           }
-          this.router.navigate(['/opportunities']);
+          
+          // Solo navegamos a la lista si no se indica que debemos quedarnos en la página
+          if (!stayOnPage) {
+            this.router.navigate(['/opportunities']);
+          } else {
+            this.isLoading = false;
+          }
         },
         error: (err) => this.handleError(err, 'update'),
-        complete: () => this.isLoading = false
+        complete: () => {
+          if (!stayOnPage) {
+            this.isLoading = false;
+          }
+        }
       });
     } else {
       const newOpportunity: OpportunityCreate = formValue;
@@ -227,5 +239,14 @@ export class OpportunityFormComponent implements OnInit {
         this.isSubmittingComment = false;
       }
     });
+  }
+  
+  // Método para manejar los cambios de estado desde la barra de progreso
+  onStatusChange(newStatus: string): void {
+    // Actualizar el formulario con el nuevo estado
+    this.opportunityForm.patchValue({ status: newStatus });
+    
+    // Guardar los cambios y permanecer en la página
+    this.onSubmit(true);
   }
 }

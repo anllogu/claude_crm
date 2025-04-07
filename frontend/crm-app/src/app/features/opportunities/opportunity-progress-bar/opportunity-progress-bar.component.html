@@ -1,0 +1,24 @@
+<div class="progress-bar-container">
+  <div class="stages-container">
+    <div *ngFor="let stage of STAGES; let i = index" class="stage"
+         [ngClass]="{
+           'completed': isCompleted(stage.value),
+           'current': isCurrent(stage.value),
+           'pending': isPending(stage.value)
+         }">
+      <div class="stage-content">
+        <span class="stage-icon" *ngIf="isCompleted(stage.value)">✓</span>
+        <span class="stage-label">{{ stage.label }}</span>
+      </div>
+      <div class="connector" *ngIf="i < STAGES.length - 1"></div>
+    </div>
+  </div>
+  
+  <div class="action-button-container">
+    <button mat-raised-button color="primary" 
+            *ngIf="!isLastStage(currentStatus)"
+            (click)="advanceStage()">
+      <mat-icon>check_circle</mat-icon> Marcar etapa como completada
+    </button>
+  </div>
+</div>

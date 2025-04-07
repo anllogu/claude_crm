@@ -1,0 +1,72 @@
+.progress-bar-container {
+  margin: 20px 0;
+  padding: 15px;
+  
+  .stages-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    .stage {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      border-radius: 4px;
+      position: relative;
+      margin: 0 2px;
+      transition: all 0.3s ease;
+      
+      &.completed {
+        background-color: #4CAF50; // Verde
+        color: white;
+      }
+      
+      &.current {
+        background-color: #1976D2; // Azul
+        color: white;
+        font-weight: bold;
+      }
+      
+      &.pending {
+        background-color: #E0E0E0; // Gris
+        color: #757575;
+      }
+      
+      .stage-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        .stage-icon {
+          margin-right: 5px;
+        }
+      }
+    }
+    
+    .connector {
+      height: 2px;
+      background-color: #BDBDBD;
+      flex: 0.5;
+      margin: 0 5px;
+      position: relative;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        right: -5px;
+        top: -4px;
+        width: 0;
+        height: 0;
+        border-top: 5px solid transparent;
+        border-bottom: 5px solid transparent;
+        border-left: 5px solid #BDBDBD;
+      }
+    }
+  }
+  
+  .action-button-container {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
