@@ -1,32 +1,32 @@
 <div class="dashboard-container">
-  <mat-card class="kpi-card">
-    <mat-card-header>
-      <mat-card-title>KPIs</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="kpi-grid">
-        <div class="kpi-item">
-          <div class="kpi-value">{{ kpis?.total_contacts || 0 }}</div>
-          <div class="kpi-label">Contactos</div>
+  <div class="dashboard-grid">
+    <mat-card class="dashboard-card kpi-card">
+      <mat-card-header>
+        <mat-card-title>KPIs</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="kpi-grid">
+          <div class="kpi-item">
+            <div class="kpi-value">{{ kpis?.total_contacts || 0 }}</div>
+            <div class="kpi-label">Contactos</div>
+          </div>
+          <div class="kpi-item">
+            <div class="kpi-value">{{ kpis?.open_opportunities || 0 }}</div>
+            <div class="kpi-label">Oportunidades Abiertas</div>
+          </div>
+          <div class="kpi-item">
+            <div class="kpi-value">{{ kpis?.won_opportunities || 0 }}</div>
+            <div class="kpi-label">Oportunidades Ganadas</div>
+          </div>
+          <div class="kpi-item">
+            <div class="kpi-value">{{ (kpis?.total_won_value || 0) | currency:'EUR' }}</div>
+            <div class="kpi-label">Valor Total Ganado</div>
+          </div>
         </div>
-        <div class="kpi-item">
-          <div class="kpi-value">{{ kpis?.open_opportunities || 0 }}</div>
-          <div class="kpi-label">Oportunidades Abiertas</div>
-        </div>
-        <div class="kpi-item">
-          <div class="kpi-value">{{ kpis?.won_opportunities || 0 }}</div>
-          <div class="kpi-label">Oportunidades Ganadas</div>
-        </div>
-        <div class="kpi-item">
-          <div class="kpi-value">{{ (kpis?.total_won_value || 0) | currency:'EUR' }}</div>
-          <div class="kpi-label">Valor Total Ganado</div>
-        </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
+      </mat-card-content>
+    </mat-card>
 
-  <div class="chart-container">
-    <mat-card class="chart-card">
+    <mat-card class="dashboard-card chart-card">
       <mat-card-header>
         <mat-card-title>Oportunidades por Estado</mat-card-title>
       </mat-card-header>
@@ -37,7 +37,6 @@
         <div *ngIf="!isLoading && opportunityStatusData.length === 0" class="no-data">
           No hay datos disponibles
         </div>
-        <!-- Chart would go here -->
         <div *ngIf="!isLoading && opportunityStatusData.length > 0" class="chart-placeholder">
           <div *ngFor="let item of opportunityStatusData" class="status-item">
             <div class="status-name">{{ item.name }}</div>

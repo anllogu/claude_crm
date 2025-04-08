@@ -1,0 +1,74 @@
+.container {
+  background-color: var(--background-color);
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+}
+
+h2 {
+  color: var(--primary-color);
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
+.mat-mdc-raised-button {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+.mat-elevation-z8 {
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-mdc-header-cell {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 500;
+}
+
+.mat-mdc-cell, .mat-mdc-header-cell {
+  padding: 12px 16px;
+}
+
+.mat-mdc-row:nth-child(even) {
+  background-color: var(--background-color);
+}
+
+.mat-mdc-row:hover {
+  background-color: rgba(var(--primary-color), 0.05);
+}
+
+.mat-mdc-paginator {
+  background-color: var(--background-color);
+  border-top: 1px solid var(--border-color);
+}
+
+.alert-info {
+  background-color: rgba(var(--accent-color), 0.1);
+  border: 1px solid var(--accent-color);
+  border-radius: 4px;
+  color: var(--accent-color);
+  padding: 16px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+}

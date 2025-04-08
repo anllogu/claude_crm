@@ -1,35 +1,102 @@
-// Add any specific styles for the opportunities list component here
-
-// Style for the status badges
-.badge {
-  padding: 0.5rem 0.75rem;
+.container {
+  background-color: var(--background-color);
   border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+}
+
+h2 {
+  color: var(--primary-color);
+  font-size: 24px;
   font-weight: 500;
-  display: inline-block;
-  min-width: 120px;
+  margin-bottom: 0;
+}
+
+.mat-mdc-raised-button {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+.mat-elevation-z8 {
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-mdc-header-cell {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 500;
+}
+
+.mat-mdc-cell, .mat-mdc-header-cell {
+  padding: 12px 16px;
+}
+
+.mat-mdc-row:nth-child(even) {
+  background-color: var(--background-color);
+}
+
+.mat-mdc-row:hover {
+  background-color: rgba(var(--primary-color), 0.05);
+}
+
+.mat-mdc-paginator {
+  background-color: var(--background-color);
+  border-top: 1px solid var(--border-color);
+}
+
+.alert-info {
+  background-color: rgba(var(--accent-color), 0.1);
+  border: 1px solid var(--accent-color);
+  border-radius: 4px;
+  color: var(--accent-color);
+  padding: 16px;
+}
+
+.text-center {
   text-align: center;
 }
 
-// Make the table more responsive
-.mat-mdc-table {
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+}
+
+// Specific styles for opportunities list
+.badge {
+  padding: 6px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.bg-primary { background-color: var(--primary-color); }
+.bg-info { background-color: rgba(var(--primary-color), 0.8); }
+.bg-warning { background-color: var(--accent-color); }
+.bg-secondary { background-color: #6c757d; }
+.bg-success { background-color: #28a745; }
+.bg-danger { background-color: #dc3545; }
+.bg-dark { background-color: var(--text-color); }
+
+// Client filter styles
+.mat-mdc-select {
   width: 100%;
-  overflow-x: auto;
 }
 
-// Add some spacing to the table cells
-.mat-mdc-cell, .mat-mdc-header-cell {
-  padding: 0 16px;
-}
-
-// Ensure filters stay side by side with proper spacing
-.row.mb-3 {
-  margin-left: 0;
-  margin-right: 0;
-}
-
-// Add some spacing between filter fields on very small screens
-@media (max-width: 767px) {
-  .col-md-6:first-child {
-    margin-bottom: 1rem;
-  }
+.mat-mdc-option {
+  font-size: 14px;
+  line-height: 1.2;
+  padding: 8px 16px;
 }
