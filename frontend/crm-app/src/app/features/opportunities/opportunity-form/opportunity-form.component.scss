@@ -2,7 +2,7 @@
 
 // Add some spacing between form fields
 mat-form-field {
-  margin-bottom: 1rem;
+  margin-bottom: 0.125rem;
 }
 
 // Style for the textarea
@@ -15,12 +15,14 @@ textarea {
 // Make the description field take up more space
 .description-field {
   width: 100% !important;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }
 
 // Add some spacing between buttons
 button {
-  margin-left: 8px;
+  margin: 2px 4px;
+  padding: 4px 8px;
+  font-size: 0.875rem;
 }
 
 // Make the container take up more width
@@ -31,11 +33,11 @@ button {
 
 // Remove padding from the card to maximize width
 mat-card {
-  padding: 16px 0;
+  padding: 2px 0;
 }
 
 mat-card-content {
-  padding: 0 16px;
+  padding: 0 2px;
 }
 
 // Styles for tracking entries
@@ -92,4 +94,28 @@ mat-card-content {
 // Override mat-list-item height for tracking entries
 ::ng-deep .mat-mdc-list-item {
   height: auto !important;
+}
+
+/* Estilos para el layout flexible horizontal */
+.form-fields-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px; // Reducido de 16px a 4px
+  width: 100%;
+}
+
+.form-field-item {
+  // flex: 1 1 300px; /* grow, shrink, basis */
+  min-width: 250px;
+  margin-bottom: 4px; // Reducido de 16px a 4px
+}
+
+// Reducir el margen inferior de los campos de formulario
+mat-form-field {
+  margin-bottom: 0;
+}
+
+.full-width-field {
+  flex: 1 1 100%;
+  min-width: 100%;
 }
