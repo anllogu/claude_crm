@@ -8,6 +8,8 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator'; 
 import { MatSort, MatSortModule } from '@angular/material/sort'; // Import MatSort for sorting
 import { MatFormFieldModule } from '@angular/material/form-field'; // Import MatFormFieldModule for filtering
 import { MatInputModule } from '@angular/material/input'; // Import MatInputModule for filtering
+import { MatCardModule } from '@angular/material/card'; // Import MatCardModule
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'; // Import MatProgressSpinnerModule
 
 import { ContactsService } from '../../../core/services/contacts.service';
 import { Contact } from '../../../core/models/contact.model';
@@ -24,7 +26,9 @@ import { Contact } from '../../../core/models/contact.model';
     MatPaginatorModule, // Add Paginator module
     MatSortModule, // Add Sort module
     MatFormFieldModule, // Add FormField module
-    MatInputModule // Add Input module
+    MatInputModule, // Add Input module
+    MatCardModule, // Add Card module
+    MatProgressSpinnerModule // Add Progress Spinner module
   ],
   templateUrl: './contacts-list.component.html',
   styleUrl: './contacts-list.component.scss'
