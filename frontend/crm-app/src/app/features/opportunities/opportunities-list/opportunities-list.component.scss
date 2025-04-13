@@ -38,9 +38,9 @@ table {
   font-weight: 500;
 }
 
-.mat-mdc-cell, .mat-mdc-header-cell {
-  padding: 12px 16px;
-}
+// .mat-mdc-cell, .mat-mdc-header-cell {
+//   padding: 9px 16px;
+// }
 
 .mat-mdc-row:nth-child(even) {
   background-color: var(--background-color);
@@ -74,10 +74,11 @@ table {
 }
 
 // Specific styles for opportunities list
-.badge {
+// Increase specificity to override default table cell styles
+.mat-mdc-cell .badge {
   padding: 6px 10px;
   border-radius: 12px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 500;
   text-transform: uppercase;
 }

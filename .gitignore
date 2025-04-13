@@ -67,7 +67,4 @@ Thumbs.db
 .env.production.local
 
 # Keep the sample database for demo purposes
-# backend/crm.db
-backend/crm.db
-backend/crm.db
 backend/crm.db

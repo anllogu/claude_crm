@@ -1,3 +1,5 @@
+@use '../../../../styles.scss' as theme;
+
 .container {
   background-color: var(--background-color);
   border-radius: 4px;
@@ -33,14 +35,14 @@ table {
 }
 
 .mat-mdc-header-cell {
-  background-color: var(--primary-color);
+  background-color: theme.$primary-color;
   color: white;
   font-weight: 500;
 }
 
-.mat-mdc-cell, .mat-mdc-header-cell {
-  padding: 12px 16px;
-}
+// .mat-mdc-cell, .mat-mdc-header-cell {
+//   padding: 9px 16px;
+// }
 
 .mat-mdc-row:nth-child(even) {
   background-color: var(--background-color);
