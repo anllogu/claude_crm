@@ -25,6 +25,10 @@ export const routes: Routes = [
         loadChildren: () => import('./features/opportunities/opportunities.module').then(m => m.OpportunitiesModule)
       },
       {
+        path: 'settings',
+        loadChildren: () => import('./features/settings').then(m => m.SettingsModule)
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full'
