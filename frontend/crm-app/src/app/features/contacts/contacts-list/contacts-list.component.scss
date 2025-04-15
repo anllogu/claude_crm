@@ -34,15 +34,13 @@ table {
   width: 100%;
 }
 
-.mat-mdc-header-cell {
-  background-color: theme.$primary-color;
-  color: white;
+.mat-mdc-header-cell,
+.mat-header-cell,
+.mdc-data-table__header-cell {
+  background-color: var(--primary-color) !important;
+  color: white !important;
   font-weight: 500;
 }
-
-// .mat-mdc-cell, .mat-mdc-header-cell {
-//   padding: 9px 16px;
-// }
 
 .mat-mdc-row:nth-child(even) {
   background-color: var(--background-color);

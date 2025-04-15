@@ -32,9 +32,19 @@ table {
   width: 100%;
 }
 
-.mat-mdc-header-cell {
-  background-color: var(--primary-color);
-  color: white;
+table.mat-table th.mat-mdc-header-cell,
+table.mat-table th.mat-header-cell,
+table.mat-table th.mdc-data-table__header-cell {
+  background-color: var(--primary-color) !important;
+  color: white !important;
+  font-weight: 500;
+}
+
+.mat-mdc-header-cell,
+.mat-header-cell,
+.mdc-data-table__header-cell {
+  background-color: var(--primary-color) !important;
+  color: white !important;
   font-weight: 500;
 }
 
