@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UsersComponent } from './users.component';
-import { AutomationsComponent } from './automations.component';
-import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-settings',
@@ -11,9 +9,7 @@ import { MatTabsModule } from '@angular/material/tabs';
   standalone: true,
   imports: [
     CommonModule,
-    UsersComponent,
-    AutomationsComponent,
-    MatTabsModule
+    UsersComponent
   ]
 })
 export class SettingsComponent { }

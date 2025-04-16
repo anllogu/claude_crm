@@ -16,8 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatTableModule,
     MatDialogModule,
     MatButtonModule,
-    MatIconModule,
-    UserFormComponent
+    MatIconModule
   ],
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.scss']
@@ -33,7 +32,7 @@ export class UsersListComponent implements OnInit {
   }
 
   loadUsers() {
-    this.userService.getUsers().subscribe(users => this.users = users);
+    this.userService.getUsers().subscribe((users: User[]) => this.users = users);
   }
 
   openUserForm(user?: User) {
