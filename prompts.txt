@@ -11,4 +11,3 @@ Ha de tener el siguiente stack tecnológico:
 - frontend: angular
 - BBDD Sqlite
 
-El modelo de datos básate en el Common Data Model (CDM) de Microsoft. Ha de estar preparada para poder ampliar fácilmente con funcionalidades la plataforma.
