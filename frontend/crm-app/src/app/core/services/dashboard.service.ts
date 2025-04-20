@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiConfigService } from './api-config.service';
-import { KPIs, OpportunityStatusCount, OpportunityClientValue } from '../models/dashboard.model';
+import { KPIs, OpportunityStatusCount, OpportunityClientValue, OpportunityDashboard } from '../models/dashboard.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +23,10 @@ export class DashboardService {
 
   getOpportunitiesByStatus(): Observable<OpportunityStatusCount> {
     return this.http.get<OpportunityStatusCount>(`${this.apiConfig.getDashboardUrl()}/opportunities-by-status`);
+  }
+
+  // Cuadro de mandos de oportunidades
+  getOpportunityDashboard(): Observable<OpportunityDashboard> {
+    return this.http.get<OpportunityDashboard>(`${this.apiConfig.getDashboardUrl()}/opportunity-dashboard`);
   }
 }

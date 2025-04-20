@@ -15,6 +15,7 @@ import { OpportunitiesService } from '../../../core/services/opportunities.servi
 import { ContactsService } from '../../../core/services/contacts.service';
 import { Opportunity, OpportunityStatus } from '../../../core/models/opportunity.model';
 import { Contact } from '../../../core/models/contact.model';
+import { OpportunityDashboardComponent } from '../opportunity-dashboard/opportunity-dashboard.component';
 
 @Component({
   selector: 'app-opportunities-list',
@@ -30,7 +31,8 @@ import { Contact } from '../../../core/models/contact.model';
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    OpportunityDashboardComponent
   ],
   templateUrl: './opportunities-list.component.html',
   styleUrl: './opportunities-list.component.scss'

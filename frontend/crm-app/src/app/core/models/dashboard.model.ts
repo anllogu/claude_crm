@@ -12,3 +12,22 @@ export interface OpportunityStatusCount {
 export interface OpportunityClientValue {
   [key: string]: number;
 }
+
+// Cuadro de mandos de oportunidades
+export interface OpportunityDashboard {
+  monthlySales: MetricWithTrend;
+  pipelineValue: number;
+  averageTicket: MetricWithTrend;
+  conversionRate: MetricWithTrend;
+  pipelineByStage: PipelineStage[];
+}
+
+export interface MetricWithTrend {
+  value: number;
+  trend: number; // Porcentaje de variación, puede ser positivo o negativo
+}
+
+export interface PipelineStage {
+  name: string;
+  value: number;
+}

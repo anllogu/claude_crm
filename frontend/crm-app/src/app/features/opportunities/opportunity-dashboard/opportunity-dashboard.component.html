@@ -1,0 +1,54 @@
+<div class="opportunity-dashboard-container">
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner diameter="40"></mat-spinner>
+    <span>Cargando cuadro de mandos...</span>
+  </div>
+  <div *ngIf="error" class="error-container">
+    <mat-icon color="warn">error</mat-icon>
+    <span>Error al cargar los datos.</span>
+  </div>
+  <ng-container *ngIf="!loading && !error && data">
+    <div class="kpi-row">
+      <mat-card class="kpi-card">
+        <div class="kpi-label">Ventas cerradas (mes)</div>
+        <div class="kpi-value">€{{ data.monthlySales.value | number:'1.0-0' }}</div>
+        <div class="kpi-trend" [ngClass]="getTrendColor(data.monthlySales.trend)">
+          <mat-icon *ngIf="data.monthlySales.trend > 0" color="primary">arrow_upward</mat-icon>
+          <mat-icon *ngIf="data.monthlySales.trend < 0" color="warn">arrow_downward</mat-icon>
+          <span>{{ data.monthlySales.trend | number:'1.0-0' }}%</span>
+        </div>
+      </mat-card>
+      <mat-card class="kpi-card">
+        <div class="kpi-label">Valor del pipeline</div>
+        <div class="kpi-value">€{{ data.pipelineValue | number:'1.0-0' }}</div>
+      </mat-card>
+      <mat-card class="kpi-card">
+        <div class="kpi-label">Ticket promedio</div>
+        <div class="kpi-value">€{{ data.averageTicket.value | number:'1.0-0' }}</div>
+        <div class="kpi-trend" [ngClass]="getTrendColor(data.averageTicket.trend)">
+          <mat-icon *ngIf="data.averageTicket.trend > 0" color="primary">arrow_upward</mat-icon>
+          <mat-icon *ngIf="data.averageTicket.trend < 0" color="warn">arrow_downward</mat-icon>
+          <span>{{ data.averageTicket.trend | number:'1.0-0' }}%</span>
+        </div>
+      </mat-card>
+      <mat-card class="kpi-card">
+        <div class="kpi-label">Ratio de conversión</div>
+        <div class="kpi-value">{{ data.conversionRate.value | number:'1.0-0' }}%</div>
+        <div class="kpi-trend" [ngClass]="getTrendColor(data.conversionRate.trend)">
+          <mat-icon *ngIf="data.conversionRate.trend > 0" color="primary">arrow_upward</mat-icon>
+          <mat-icon *ngIf="data.conversionRate.trend < 0" color="warn">arrow_downward</mat-icon>
+          <span>{{ data.conversionRate.trend | number:'1.0-0' }}%</span>
+        </div>
+      </mat-card>
+    </div>
+    <mat-card class="pipeline-card">
+      <div class="pipeline-title">Pipeline de Ventas</div>
+      <div class="pipeline-stages">
+        <div *ngFor="let stage of data.pipelineByStage" class="pipeline-stage">
+          <div class="stage-label">{{ stage.name }}</div>
+          <div class="stage-value">€{{ stage.value | number:'1.0-0' }}</div>
+        </div>
+      </div>
+    </mat-card>
+  </ng-container>
+</div>

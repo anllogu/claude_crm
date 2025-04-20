@@ -93,3 +93,137 @@ def get_opportunities_by_client(
     except Exception as e:
         print("Error en /dashboard/opportunities-by-client:", e)
         raise HTTPException(status_code=500, detail=str(e))
+
+# Cuadro de mandos de oportunidades
+from datetime import date, timedelta
+
+@router.get("/opportunity-dashboard")
+def get_opportunity_dashboard(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    today = date.today()
+    first_day_month = today.replace(day=1)
+    first_day_prev_month = (first_day_month - timedelta(days=1)).replace(day=1)
+    last_day_prev_month = first_day_month - timedelta(days=1)
+
+    # Ventas cerradas este mes y mes anterior
+    sales_this_month = db.query(func.sum(Opportunity.value)).filter(
+        Opportunity.status == OpportunityStatus.CLOSED_WON,
+        Opportunity.updated_at >= first_day_month,
+        Opportunity.updated_at <= today
+    ).scalar() or 0
+
+    sales_prev_month = db.query(func.sum(Opportunity.value)).filter(
+        Opportunity.status == OpportunityStatus.CLOSED_WON,
+        Opportunity.updated_at >= first_day_prev_month,
+        Opportunity.updated_at <= last_day_prev_month
+    ).scalar() or 0
+
+    monthly_sales_trend = 0
+    if sales_prev_month > 0:
+        monthly_sales_trend = ((sales_this_month - sales_prev_month) / sales_prev_month) * 100
+
+    # Valor del pipeline (oportunidades abiertas)
+    pipeline_value = db.query(func.sum(Opportunity.value)).filter(
+        Opportunity.status.in_([
+            OpportunityStatus.IDENTIFIED,
+            OpportunityStatus.QUALIFIED,
+            OpportunityStatus.PROPOSAL,
+            OpportunityStatus.DECISION
+        ])
+    ).scalar() or 0
+
+    # Ticket promedio este mes y mes anterior
+    tickets_this_month = db.query(func.avg(Opportunity.value)).filter(
+        Opportunity.status == OpportunityStatus.CLOSED_WON,
+        Opportunity.updated_at >= first_day_month,
+        Opportunity.updated_at <= today
+    ).scalar() or 0
+
+    tickets_prev_month = db.query(func.avg(Opportunity.value)).filter(
+        Opportunity.status == OpportunityStatus.CLOSED_WON,
+        Opportunity.updated_at >= first_day_prev_month,
+        Opportunity.updated_at <= last_day_prev_month
+    ).scalar() or 0
+
+    avg_ticket_trend = 0
+    if tickets_prev_month > 0:
+        avg_ticket_trend = ((tickets_this_month - tickets_prev_month) / tickets_prev_month) * 100
+
+    # Ratio de conversión este mes y mes anterior
+    total_won_this_month = db.query(func.count(Opportunity.id)).filter(
+        Opportunity.status == OpportunityStatus.CLOSED_WON,
+        Opportunity.updated_at >= first_day_month,
+        Opportunity.updated_at <= today
+    ).scalar() or 0
+
+    total_closed_this_month = db.query(func.count(Opportunity.id)).filter(
+        Opportunity.status.in_([
+            OpportunityStatus.CLOSED_WON,
+            OpportunityStatus.CLOSED_LOST,
+            OpportunityStatus.CLOSED_DISCARDED
+        ]),
+        Opportunity.updated_at >= first_day_month,
+        Opportunity.updated_at <= today
+    ).scalar() or 0
+
+    conversion_rate_this_month = (total_won_this_month / total_closed_this_month * 100) if total_closed_this_month > 0 else 0
+
+    total_won_prev_month = db.query(func.count(Opportunity.id)).filter(
+        Opportunity.status == OpportunityStatus.CLOSED_WON,
+        Opportunity.updated_at >= first_day_prev_month,
+        Opportunity.updated_at <= last_day_prev_month
+    ).scalar() or 0
+
+    total_closed_prev_month = db.query(func.count(Opportunity.id)).filter(
+        Opportunity.status.in_([
+            OpportunityStatus.CLOSED_WON,
+            OpportunityStatus.CLOSED_LOST,
+            OpportunityStatus.CLOSED_DISCARDED
+        ]),
+        Opportunity.updated_at >= first_day_prev_month,
+        Opportunity.updated_at <= last_day_prev_month
+    ).scalar() or 0
+
+    conversion_rate_prev_month = (total_won_prev_month / total_closed_prev_month * 100) if total_closed_prev_month > 0 else 0
+
+    conversion_rate_trend = 0
+    if conversion_rate_prev_month > 0:
+        conversion_rate_trend = (conversion_rate_this_month - conversion_rate_prev_month)
+
+    # Valor por etapa del pipeline
+    pipeline_stages = [
+        OpportunityStatus.IDENTIFIED.value,
+        OpportunityStatus.QUALIFIED.value,
+        OpportunityStatus.PROPOSAL.value,
+        OpportunityStatus.DECISION.value,
+        OpportunityStatus.CLOSED_WON.value,
+        OpportunityStatus.CLOSED_LOST.value,
+        OpportunityStatus.CLOSED_DISCARDED.value
+    ]
+    pipeline_by_stage = {}
+    for stage in pipeline_stages:
+        value = db.query(func.sum(Opportunity.value)).filter(
+            Opportunity.status == stage
+        ).scalar() or 0
+        pipeline_by_stage[stage] = value
+
+    return {
+        "monthlySales": {
+            "value": float(sales_this_month),
+            "trend": float(monthly_sales_trend)
+        },
+        "pipelineValue": float(pipeline_value),
+        "averageTicket": {
+            "value": float(tickets_this_month),
+            "trend": float(avg_ticket_trend)
+        },
+        "conversionRate": {
+            "value": float(conversion_rate_this_month),
+            "trend": float(conversion_rate_trend)
+        },
+        "pipelineByStage": [
+            {"name": stage, "value": float(value)} for stage, value in pipeline_by_stage.items()
+        ]
+    }

@@ -1,0 +1,109 @@
+.opportunity-dashboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.kpi-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.kpi-card {
+  flex: 1 1 200px;
+  min-width: 200px;
+  max-width: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 18px 20px 14px 20px;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+
+.kpi-label {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.kpi-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 2px;
+}
+
+.kpi-trend {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 2px;
+  gap: 2px;
+}
+
+.trend-up {
+  color: #2e7d32; /* verde */
+}
+
+.trend-down {
+  color: #c62828; /* rojo */
+}
+
+.pipeline-card {
+  padding: 18px 20px 18px 20px;
+  border-radius: 8px;
+  background: #f7f9fa;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+
+.pipeline-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #222;
+}
+
+.pipeline-stages {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pipeline-stage {
+  background: #e9ecef;
+  border-radius: 6px;
+  padding: 12px 18px;
+  min-width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stage-label {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 2px;
+  font-size: 1rem;
+}
+
+.stage-value {
+  font-size: 1.1rem;
+  color: #222;
+  font-weight: 500;
+}
+
+.loading-container, .error-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+  color: #888;
+  min-height: 60px;
+  justify-content: center;
+}
