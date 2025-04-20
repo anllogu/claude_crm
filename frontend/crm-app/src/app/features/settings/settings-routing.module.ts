@@ -1,25 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SettingsComponent } from './settings.component';
+import { AutomationsComponent } from './automations.component';
+import { UsersComponent } from './users.component';
+import { AdminGuard } from '../../core/guards/admin.guard';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'users',
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate: [AdminGuard]
   },
   {
     path: 'automations',
-    component: AutomationsComponent
+    component: AutomationsComponent,
+    canActivate: [AdminGuard]
   },
   {
     path: 'users',
-    component: UsersComponent
+    component: UsersComponent,
+    canActivate: [AdminGuard]
   }
 ];
-
-import { AutomationsComponent } from './automations.component';
-import { UsersComponent } from './users.component';
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

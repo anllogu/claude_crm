@@ -8,3 +8,7 @@ export interface KPIs {
 export interface OpportunityStatusCount {
   [key: string]: number;
 }
+
+export interface OpportunityClientValue {
+  [key: string]: number;
+}

@@ -58,8 +58,38 @@ def get_opportunities_by_status(
     ).group_by(Opportunity.status).all()
     
     # Convert to dictionary
-    status_counts = {status: 0 for status in OpportunityStatus}
+    status_counts = {status.value: 0 for status in OpportunityStatus}
     for status, count in results:
-        status_counts[status] = count
+        # status puede ser string, aseguramos que coincida con el valor del enum
+        if isinstance(status, OpportunityStatus):
+            key = status.value
+        else:
+            key = str(status)
+        status_counts[key] = count
     
     return status_counts
+
+@router.get("/opportunities-by-client")
+def get_opportunities_by_client(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    try:
+        # Obtener la suma del valor de oportunidades agrupadas por cliente
+        results = db.query(
+            Contact.company,
+            func.sum(Opportunity.value).label("total_value")
+        ).join(Contact, Contact.id == Opportunity.contact_id)\
+         .group_by(Contact.company)\
+         .order_by(func.sum(Opportunity.value).desc())\
+         .all()
+        
+        # Convertir a diccionario, ignorando company o total_value nulos
+        client_values = {
+            str(company) if company is not None else "Sin empresa": float(total_value) if total_value is not None else 0.0
+            for company, total_value in results
+        }
+        return client_values
+    except Exception as e:
+        print("Error en /dashboard/opportunities-by-client:", e)
+        raise HTTPException(status_code=500, detail=str(e))

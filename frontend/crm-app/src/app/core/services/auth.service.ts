@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, tap } from 'rxjs';
 import { ApiConfigService } from './api-config.service';
 import { User, UserLogin, UserRegister, AuthResponse } from '../models/user.model';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -54,23 +55,32 @@ export class AuthService {
   }
 
   private loadUserFromToken(): void {
-    // In a real app, we would decode the JWT token to get user info
-    // or make an API call to get the current user
-    // For now, we'll just set a placeholder user if token exists
     const token = this.getToken();
     if (token) {
-      // Placeholder user - in a real app, decode JWT or fetch user profile
-      const user: User = {
-        id: 1,
-        username: 'user',
-        email: 'user@example.com',
-        created_at: new Date().toISOString()
-      };
-      this.currentUserSubject.next(user);
+      try {
+        const decoded: any = jwtDecode(token);
+        const user: User = {
+          id: decoded.id || 1,
+          username: decoded.sub,
+          email: decoded.email || 'user@example.com',
+          created_at: new Date().toISOString(),
+          rol: decoded.role || 'usuario',
+          last_login: decoded.last_login
+        };
+        this.currentUserSubject.next(user);
+      } catch (error) {
+        console.error('Error decoding token', error);
+        this.logout();
+      }
     }
   }
 
   isAuthenticated(): boolean {
     return !!this.getToken();
+  }
+
+  isAdmin(): boolean {
+    const user = this.currentUserSubject.value;
+    return user?.rol === 'administrador';
   }
 }

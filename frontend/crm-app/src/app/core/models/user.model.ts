@@ -4,6 +4,7 @@ export interface User {
   email: string;
   created_at: string;
   last_login?: string;
+  rol: string;
 }
 
 export interface UserLogin {

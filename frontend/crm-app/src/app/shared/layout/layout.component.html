@@ -25,7 +25,7 @@
           <span matListItemTitle>Automatismos</span>
         </a>
         <mat-divider></mat-divider>
-        <a mat-list-item routerLink="/settings" routerLinkActive="active">
+        <a mat-list-item routerLink="/settings" routerLinkActive="active" *ngIf="isAdmin()">
           <mat-icon matListItemIcon>settings</mat-icon>
           <span matListItemTitle>Configuración</span>
         </a>
@@ -45,7 +45,7 @@
         <span class="spacer"></span>
         <button mat-button [matMenuTriggerFor]="userMenu" aria-label="User menu" class="user-menu-button">
           <mat-icon>account_circle</mat-icon>
-          <span>Usuario</span>
+          <span>{{ currentUser?.username || 'Usuario' }}</span>
         </button>
         <mat-menu #userMenu="matMenu" class="user-menu">
           <button mat-menu-item (click)="logout()">

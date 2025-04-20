@@ -1,20 +1,30 @@
 .container {
-  background-color: var(--background-color);
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  border-radius: 8px; // Increased from 4px
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); // Enhanced shadow
   padding: 24px;
 }
 
 h2 {
   color: var(--primary-color);
-  font-size: 24px;
-  font-weight: 500;
+  font-size: 26px; // Increased from 24px
+  font-weight: 600; // Increased from 500
   margin-bottom: 0;
+  letter-spacing: 0.01em; // Added letter spacing
 }
 
 .mat-mdc-raised-button {
   background-color: var(--primary-color);
   color: white;
+  font-weight: 600; // Added font weight
+  letter-spacing: 0.01em; // Added letter spacing
+  border-radius: 6px; // Added border radius
+  transition: background-color 0.2s, transform 0.2s; // Added transition
+  
+  &:hover {
+    transform: translateY(-1px); // Subtle lift effect
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); // Enhanced shadow on hover
+  }
 }
 
 .mat-mdc-form-field {
@@ -23,9 +33,10 @@ h2 {
 
 .mat-elevation-z8 {
   background-color: white;
-  border: 1px solid var(--border-color);
-  border-radius: 4px;
+  border: none; // Removed border
+  border-radius: 8px; // Increased from 4px
   overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); // Enhanced shadow
 }
 
 table {
@@ -37,7 +48,8 @@ table.mat-table th.mat-header-cell,
 table.mat-table th.mdc-data-table__header-cell {
   background-color: var(--primary-color) !important;
   color: white !important;
-  font-weight: 500;
+  font-weight: 600; // Increased from 500
+  letter-spacing: 0.01em; // Added letter spacing
 }
 
 .mat-mdc-header-cell,
@@ -45,7 +57,8 @@ table.mat-table th.mdc-data-table__header-cell {
 .mdc-data-table__header-cell {
   background-color: var(--primary-color) !important;
   color: white !important;
-  font-weight: 500;
+  font-weight: 600; // Increased from 500
+  letter-spacing: 0.01em; // Added letter spacing
 }
 
 // .mat-mdc-cell, .mat-mdc-header-cell {
@@ -57,7 +70,8 @@ table.mat-table th.mdc-data-table__header-cell {
 }
 
 .mat-mdc-row:hover {
-  background-color: rgba(var(--primary-color), 0.05);
+  background-color: #f0f5ff; // Very light blue background (5% opacity of primary color)
+  cursor: pointer; // Added pointer cursor
 }
 
 .mat-mdc-paginator {
@@ -66,9 +80,9 @@ table.mat-table th.mdc-data-table__header-cell {
 }
 
 .alert-info {
-  background-color: rgba(var(--accent-color), 0.1);
+  background-color: #e6f9ff; // Light cyan background (10% opacity of accent color)
   border: 1px solid var(--accent-color);
-  border-radius: 4px;
+  border-radius: 8px; // Increased from 4px
   color: var(--accent-color);
   padding: 16px;
 }
@@ -86,20 +100,22 @@ table.mat-table th.mdc-data-table__header-cell {
 // Specific styles for opportunities list
 // Increase specificity to override default table cell styles
 .mat-mdc-cell .badge {
-  padding: 6px 10px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 500;
+  padding: 6px 12px; // Increased horizontal padding
+  border-radius: 16px; // Increased from 12px
+  font-size: 13px; // Decreased from 14px for more compact look
+  font-weight: 600; // Increased from 500
   text-transform: uppercase;
+  letter-spacing: 0.03em; // Added letter spacing
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); // Added subtle shadow
 }
 
-.bg-primary { background-color: var(--primary-color); }
-.bg-info { background-color: rgba(var(--primary-color), 0.8); }
-.bg-warning { background-color: var(--accent-color); }
-.bg-secondary { background-color: #6c757d; }
-.bg-success { background-color: #28a745; }
-.bg-danger { background-color: #dc3545; }
-.bg-dark { background-color: var(--text-color); }
+.bg-primary { background-color: var(--primary-color); color: white; }
+.bg-info { background-color: var(--accent-color); color: white; }
+.bg-warning { background-color: #ffab00; color: #212529; } // Vibrant amber
+.bg-secondary { background-color: #6c757d; color: white; }
+.bg-success { background-color: #00d97e; color: white; } // Vibrant green
+.bg-danger { background-color: #ff3d71; color: white; } // Vibrant red
+.bg-dark { background-color: var(--text-color); color: white; }
 
 // Client filter styles
 .mat-mdc-select {

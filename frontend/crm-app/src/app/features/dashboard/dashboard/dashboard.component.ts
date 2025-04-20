@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardService } from '../../../core/services/dashboard.service';
-import { KPIs, OpportunityStatusCount } from '../../../core/models/dashboard.model';
+import { KPIs, OpportunityStatusCount, OpportunityClientValue } from '../../../core/models/dashboard.model';
+import { ChartData, ChartType } from 'chart.js';
+import { BaseChartDirective, provideCharts, withDefaultRegisterables } from 'ng2-charts';
 import { OpportunityStatus } from '../../../core/models/opportunity.model';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -23,7 +25,11 @@ interface StatusData {
     MatCardModule,
     MatProgressBarModule,
     MatIconModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    BaseChartDirective
+  ],
+  providers: [
+    provideCharts(withDefaultRegisterables())
   ]
 })
 export class DashboardComponent implements OnInit {
@@ -32,10 +38,15 @@ export class DashboardComponent implements OnInit {
   isLoading = true;
   maxStatusValue = 0;
 
+  // Gráficos
+  barChartData: ChartData<'bar'> = { labels: [], datasets: [] };
+  opportunityClientData: ChartData<'pie'> = { labels: [], datasets: [] };
+
   constructor(private dashboardService: DashboardService) { }
 
   ngOnInit(): void {
     this.loadDashboardData();
+    this.loadOpportunityClientData();
   }
 
   loadDashboardData(): void {
@@ -71,19 +82,24 @@ export class DashboardComponent implements OnInit {
     this.opportunityStatusData = [];
     this.maxStatusValue = 0;
 
-    // Convert the object to an array of name/value pairs
+    const labels: string[] = [];
+    const values: number[] = [];
+
+    // Convertir el objeto a arrays para el gráfico de barras
     Object.entries(data).forEach(([status, count]) => {
       this.opportunityStatusData.push({
         name: status,
         value: count
       });
+      labels.push(status);
+      values.push(count);
 
       if (count > this.maxStatusValue) {
         this.maxStatusValue = count;
       }
     });
 
-    // Sort by status order
+    // Ordenar por estado
     const statusOrder = [
       OpportunityStatus.IDENTIFIED,
       OpportunityStatus.QUALIFIED,
@@ -94,10 +110,53 @@ export class DashboardComponent implements OnInit {
       OpportunityStatus.CLOSED_DISCARDED
     ];
 
-    this.opportunityStatusData.sort((a, b) => {
-      return statusOrder.indexOf(a.name as OpportunityStatus) - 
-             statusOrder.indexOf(b.name as OpportunityStatus);
+    // Reordenar los arrays según el orden de estados
+    const orderedLabels: string[] = [];
+    const orderedValues: number[] = [];
+
+    statusOrder.forEach(status => {
+      const index = labels.indexOf(status);
+      if (index !== -1) {
+        orderedLabels.push(labels[index]);
+        orderedValues.push(values[index]);
+      }
     });
+
+    this.barChartData = {
+      labels: orderedLabels,
+      datasets: [{
+        data: orderedValues,
+        label: 'Oportunidades',
+        backgroundColor: '#36A2EB'
+      }]
+    };
+  }
+
+  loadOpportunityClientData(): void {
+    this.dashboardService.getOpportunitiesByClient().subscribe({
+      next: (data) => {
+        this.processOpportunityClientData(data);
+      },
+      error: (error) => {
+        console.error('Error loading opportunity client data:', error);
+      }
+    });
+  }
+
+  processOpportunityClientData(data: OpportunityClientValue): void {
+    const labels = Object.keys(data);
+    const values = Object.values(data);
+
+    this.opportunityClientData = {
+      labels: labels,
+      datasets: [{
+        data: values,
+        backgroundColor: [
+          '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF',
+          '#FF9F40', '#8BC34A', '#607D8B', '#E91E63', '#3F51B5'
+        ]
+      }]
+    };
   }
 
   getPercentage(value: number): number {

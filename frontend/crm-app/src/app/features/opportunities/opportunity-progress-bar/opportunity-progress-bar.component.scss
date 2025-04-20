@@ -1,6 +1,9 @@
 .progress-bar-container {
-  margin: 20px 0;
-  padding: 15px;
+  margin: 24px 0; // Increased from 20px
+  padding: 20px; // Increased from 15px
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   
   .stages-container {
     display: flex;
@@ -10,26 +13,29 @@
     .stage {
       flex: 1;
       text-align: center;
-      padding: 10px;
-      border-radius: 4px;
+      padding: 12px; // Increased from 10px
+      border-radius: 8px; // Increased from 4px
       position: relative;
-      margin: 0 2px;
+      margin: 0 4px; // Increased from 2px
       transition: all 0.3s ease;
+      font-weight: 500; // Added font weight
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); // Added shadow
       
       &.completed {
-        background-color: #4CAF50; // Verde
+        background-color: #00d97e; // Updated to vibrant green
         color: white;
       }
       
       &.current {
-        background-color: #1976D2; // Azul
+        background-color: var(--primary-color); // Use theme primary color
         color: white;
-        font-weight: bold;
+        font-weight: 600; // Increased from bold
+        transform: scale(1.05); // Slightly larger
       }
       
       &.pending {
-        background-color: #E0E0E0; // Gris
-        color: #757575;
+        background-color: #f0f2f5; // Lighter gray
+        color: #5f6368; // Darker text for better contrast
       }
       
       .stage-content {
@@ -38,17 +44,19 @@
         align-items: center;
         
         .stage-icon {
-          margin-right: 5px;
+          margin-right: 8px; // Increased from 5px
+          font-size: 18px; // Added font size
         }
       }
     }
     
     .connector {
-      height: 2px;
+      height: 3px; // Increased from 2px
       background-color: #BDBDBD;
       flex: 0.5;
       margin: 0 5px;
       position: relative;
+      border-radius: 1.5px; // Added border radius
       
       &::after {
         content: '';
@@ -65,8 +73,21 @@
   }
   
   .action-button-container {
-    margin-top: 15px;
+    margin-top: 20px; // Increased from 15px
     display: flex;
     justify-content: flex-end;
+    
+    button {
+      font-weight: 600; // Added font weight
+      letter-spacing: 0.01em; // Added letter spacing
+      border-radius: 6px; // Added border radius
+      padding: 8px 16px; // Added padding
+      transition: transform 0.2s, box-shadow 0.2s; // Added transition
+      
+      &:hover {
+        transform: translateY(-1px); // Subtle lift effect
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); // Added shadow on hover
+      }
+    }
   }
 }

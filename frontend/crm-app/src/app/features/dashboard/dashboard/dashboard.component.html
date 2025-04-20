@@ -34,15 +34,36 @@
         <div *ngIf="isLoading" class="loading-container">
           <mat-spinner diameter="40"></mat-spinner>
         </div>
-        <div *ngIf="!isLoading && opportunityStatusData.length === 0" class="no-data">
+        <div *ngIf="!isLoading && barChartData.labels && barChartData.labels.length === 0" class="no-data">
           No hay datos disponibles
         </div>
-        <div *ngIf="!isLoading && opportunityStatusData.length > 0" class="chart-placeholder">
-          <div *ngFor="let item of opportunityStatusData" class="status-item">
-            <div class="status-name">{{ item.name }}</div>
-            <div class="status-bar" [style.width.%]="getPercentage(item.value)"></div>
-            <div class="status-value">{{ item.value }}</div>
-          </div>
+        <div *ngIf="!isLoading && barChartData.labels && barChartData.labels.length > 0" class="chart-container">
+          <canvas baseChart
+            [data]="barChartData"
+            [type]="'bar'"
+            [options]="{ responsive: true, maintainAspectRatio: false }">
+          </canvas>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="dashboard-card chart-card">
+      <mat-card-header>
+        <mat-card-title>Importe de Oportunidades por Cliente</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div *ngIf="isLoading" class="loading-container">
+          <mat-spinner diameter="40"></mat-spinner>
+        </div>
+        <div *ngIf="!isLoading && opportunityClientData.labels && opportunityClientData.labels.length === 0" class="no-data">
+          No hay datos disponibles
+        </div>
+        <div *ngIf="!isLoading && opportunityClientData.labels && opportunityClientData.labels.length > 0" class="chart-container">
+          <canvas baseChart
+            [data]="opportunityClientData"
+            [type]="'pie'"
+            [options]="{ responsive: true, maintainAspectRatio: false }">
+          </canvas>
         </div>
       </mat-card-content>
     </mat-card>

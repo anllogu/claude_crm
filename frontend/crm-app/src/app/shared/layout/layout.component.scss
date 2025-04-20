@@ -16,12 +16,13 @@
   width: 250px;
   min-width: 250px;
   max-width: 250px;
-  background-color: var(--background-color);
+  background-color: white; // Changed from var(--background-color)
   border-right: 1px solid var(--border-color);
   position: fixed;
   top: 0;
   bottom: 0;
   overflow-y: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); // Added subtle shadow
 }
 
 .sidenav-header {
@@ -35,8 +36,9 @@
 
 .app-title {
   margin: 0;
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 22px; // Increased from 20px
+  font-weight: 600; // Increased from 500
+  letter-spacing: 0.02em; // Added letter spacing
 }
 
 .mat-mdc-nav-list {
@@ -46,10 +48,18 @@
 .mat-mdc-list-item {
   height: 48px !important;
   min-height: 48px;
+  font-weight: 500; // Added font weight
+  border-radius: 4px; // Added border radius
+  margin: 0 8px; // Added margin
   
   &.active {
-    background-color: rgba(var(--primary-color), 0.1);
+    background-color: #e6edff; // Light blue background (10% opacity of primary color)
     color: var(--primary-color);
+    font-weight: 600; // Bolder when active
+  }
+  
+  &:hover:not(.active) {
+    background-color: #f0f5ff; // Very light blue background (5% opacity of primary color)
   }
 }
 
@@ -61,13 +71,14 @@
   height: 64px;
   background-color: white;
   color: var(--primary-color);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); // Enhanced shadow
 }
 
 .current-page-title {
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 600; // Increased from 500
   color: var(--primary-color);
+  letter-spacing: 0.01em; // Added letter spacing
 }
 
 .user-menu-button {
@@ -120,6 +131,6 @@ mat-sidenav-content {
   color: var(--text-color);
   
   .mat-icon {
-    color: #424242;  // Color más oscuro para el icono
+    color: var(--primary-color);  // Updated icon color to match theme
   }
 }
